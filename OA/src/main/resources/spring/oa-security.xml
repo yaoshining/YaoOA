@@ -1,0 +1,35 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+    <debug />
+    <http pattern="/resources/**" security="none" />
+    <http>
+        <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/**" access="ROLE_ADMIN" requires-channel="any" />
+        <form-login default-target-url="/" always-use-default-target="true" />
+        <logout logout-url="/logout" delete-cookies="JSESSIONID" />
+        <session-management invalid-session-url="/login.jsp" session-fixation-protection="none">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+        </session-management>
+        <remember-me key="myAppKey" user-service-ref="jdbcUserDetailsService" />
+    </http>
+    <global-method-security secured-annotations="enabled" jsr250-annotations="enabled" pre-post-annotations="enabled" />
+    <beans:bean name="bcryptEncoder"
+         class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <authentication-manager>
+        <authentication-provider>
+            <password-encoder ref="bcryptEncoder" />
+            <user-service>
+                    <user name="yaoshining" password="$2a$10$cZHJoY0KcJ2MbbdeSl9cKemjs1AMxJx5TMPYQQ/2D6pFIr5d10ZpG" authorities="ROLE_USER,ROLE_ADMIN" />
+            </user-service>
+        </authentication-provider>
+        <authentication-provider>
+            <password-encoder ref="bcryptEncoder" />
+            <jdbc-user-service id="jdbcUserDetailsService" data-source-ref="jpa-jtaDataSource" />
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>
