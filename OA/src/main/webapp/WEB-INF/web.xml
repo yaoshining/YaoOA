@@ -10,6 +10,7 @@
         <param-value>
             classpath:spring/beans.xml
             classpath:spring/oa-security.xml
+            classpath:spring/oa-repositories.xml
         </param-value>
     </context-param> 
     <listener>
