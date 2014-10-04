@@ -1,6 +1,6 @@
-package com.yao.oa.repositories;
+package com.yao.oa.repositories.user;
 
-import com.yao.oa.domains.Users;
+import com.yao.oa.domains.user.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

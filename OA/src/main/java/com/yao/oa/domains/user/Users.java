@@ -1,4 +1,4 @@
-package com.yao.oa.domains;
+package com.yao.oa.domains.user;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

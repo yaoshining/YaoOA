@@ -17,5 +17,13 @@
         defined PlatformTransactionManager inside the current ApplicationContext.
     -->
     <jpa:repositories base-package="com.yao.oa.repositories" />
-
+    <!--
+        The configuration setup shown above will register a few basic components:
+        1.A DomainClassConverter to enable Spring MVC to resolve instances of repository managed
+          domain classes from request parameters or path variables.
+        2.HandlerMethodArgumentResolver implementations to let Spring MVC resolve Pageable and
+          Sort instances from request parameters.
+    -->
+    <bean class="org.springframework.data.web.config.SpringDataWebConfiguration" />
+    <bean class="org.springframework.data.web.config.SpringDataJacksonConfiguration" />
 </beans>
