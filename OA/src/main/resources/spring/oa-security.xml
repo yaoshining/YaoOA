@@ -7,6 +7,10 @@
            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
     <debug />
     <http pattern="/resources/**" security="none" />
+    <http pattern="/services/**" create-session="stateless">
+        <intercept-url pattern='/**' access='ROLE_REMOTE' />
+        <http-basic />
+    </http>
     <http>
         <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
@@ -21,7 +25,7 @@
     <global-method-security secured-annotations="enabled" jsr250-annotations="enabled" pre-post-annotations="enabled" />
     <beans:bean name="bcryptEncoder"
          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-    <authentication-manager>
+    <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <password-encoder ref="bcryptEncoder" />
             <user-service>
