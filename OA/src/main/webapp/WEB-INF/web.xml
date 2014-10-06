@@ -11,6 +11,7 @@
             classpath:spring/beans.xml
             classpath:spring/oa-security.xml
             classpath:spring/oa-repositories.xml
+            classpath:spring/oa-process.xml
         </param-value>
     </context-param> 
     <listener>

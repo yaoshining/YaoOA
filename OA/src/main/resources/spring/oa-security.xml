@@ -9,6 +9,7 @@
     <http pattern="/resources/**" security="none" />
     <http>
         <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/**" access="ROLE_ADMIN" requires-channel="any" />
         <form-login default-target-url="/" always-use-default-target="true" />
         <logout logout-url="/logout" delete-cookies="JSESSIONID" />
