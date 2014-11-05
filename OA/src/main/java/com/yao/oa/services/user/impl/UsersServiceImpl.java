@@ -2,8 +2,10 @@ package com.yao.oa.services.user.impl;
 
 import com.yao.oa.domains.user.Users;
 import com.yao.oa.repositories.user.UsersRepository;
+import com.yao.oa.services.BaseServiceSupport;
 import com.yao.oa.services.user.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
  * Created by 世宁 on 2014/10/5 0005.
  */
 @Service
-public class UsersServiceImpl implements UsersService {
+public class UsersServiceImpl extends BaseServiceSupport<Users, String> implements UsersService {
     private final UsersRepository usersRepository;
     private final UserDetailsService jdbcUserDetailsService;
     @Autowired
@@ -38,5 +40,10 @@ public class UsersServiceImpl implements UsersService {
             return new UsernamePasswordAuthenticationToken(auth.getName(),auth.getCredentials(),userDetails.getAuthorities());
         }
         throw new BadCredentialsException("Bad Credentials");
+    }
+
+    @Override
+    public JpaRepository<Users, String> getJpaRepository() {
+        return usersRepository;
     }
 }

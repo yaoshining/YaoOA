@@ -18,7 +18,7 @@ public class UsersController {
     private UsersService usersService;
     @RequestMapping("/{username}")
     public Users getUserInfo(@PathVariable String username){
-        Users user = usersService.getUserInfo(username);
+        Users user = usersService.getOne(username);
         return user;
     }
 }
