@@ -5,14 +5,24 @@
  */
 package com.yao.oa.domains.demo;
 
+import com.yao.oa.domains.user.Users;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -24,10 +34,18 @@ public class Email implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String subject;
+    @Lob
     private String content;
+    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.EAGER,optional = true)
+    @JoinColumn(name = "senderId")
+    private Users sender;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date sendTime;
-
+    private Date sendTime = new Date();
+    @ManyToMany(cascade = {CascadeType.REFRESH,CascadeType.PERSIST,CascadeType.MERGE},fetch = FetchType.EAGER)
+    @JoinTable(name = "t_user_email",joinColumns = {@JoinColumn(name = "email_id")},inverseJoinColumns = {@JoinColumn(name = "username")})
+    private List<Users> receivers;
+    @Transient
+    private List<String> receiverUserNames;
     public Integer getId() {
         return id;
     }
@@ -59,6 +77,32 @@ public class Email implements Serializable{
     public void setSendTime(Date sendTime) {
         this.sendTime = sendTime;
     }
+
+    public Users getSender() {
+        return sender;
+    }
+
+    public void setSender(Users sender) {
+        this.sender = sender;
+    }
+
+    public List<Users> getReceivers() {
+        return receivers;
+    }
+
+    public void setReceivers(List<Users> receivers) {
+        this.receivers = receivers;
+    }
+
+    public List<String> getReceiverUserNames() {
+        return receiverUserNames;
+    }
+
+    public void setReceiverUserNames(List<String> receiverUserNames) {
+        this.receiverUserNames = receiverUserNames;
+    }
+
+    
 
     
     

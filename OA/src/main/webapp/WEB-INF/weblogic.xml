@@ -4,5 +4,8 @@
     <keepgenerated>true</keepgenerated>
     <debug>true</debug>
   </jsp-descriptor>
+  <container-descriptor>
+    <prefer-web-inf-classes>false</prefer-web-inf-classes>
+  </container-descriptor>
   <context-root>/oa</context-root>
 </weblogic-web-app>

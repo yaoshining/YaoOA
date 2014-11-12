@@ -12,7 +12,7 @@
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
 ">
     <context:annotation-config />
-    <bean id="jpa-jtaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+<!--    <bean id="jpa-jtaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName">
             <value>oa-datasource</value>
         </property>
@@ -25,9 +25,15 @@
                 <prop key="java.naming.factory.initial">weblogic.jndi.WLInitialContextFactory</prop>
             </props>
         </property>
+    </bean>-->
+    <bean id="localDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/oa?characterEncoding=utf-8" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
     </bean>
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-             p:dataSource-ref="jpa-jtaDataSource"
+             p:dataSource-ref="localDataSource"
              p:persistenceXmlLocation="classpath:META-INF/persistence.xml"
              p:packagesToScan-ref="packageToScan"
              p:persistenceUnitName="YaoOA_PU"

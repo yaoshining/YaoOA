@@ -6,11 +6,15 @@
 package com.yao.oa.controllers.demo;
 
 import com.yao.oa.domains.demo.Email;
+import com.yao.oa.domains.user.Users;
 import com.yao.oa.services.demo.EmailService;
+import com.yao.oa.services.user.UsersService;
 import java.util.List;
 import javax.annotation.Resource;
+import net.sf.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,20 +26,27 @@ import org.springframework.web.bind.annotation.RestController;
  * @author yao
  */
 @RestController
-@RequestMapping("/services/demo/emails")
+@RequestMapping(value = {"/services/demo/emails","/services/demo/{username}/emails"})
 public class EmailsController {
     @Resource
     private EmailService emailService;
+    @Resource
+    private UsersService userService;
     
     @RequestMapping(value = "",method = RequestMethod.GET,produces = {"application/json"})
-    public ResponseEntity<List<Email>> index() {
-        return new ResponseEntity<List<Email>>(emailService.findAll(),HttpStatus.OK);
+    public ResponseEntity<List<Email>> index(@PathVariable String username) {
+        Users user = userService.findOne(username);
+        return new ResponseEntity<List<Email>>(user.getReceivedEmails(),HttpStatus.OK);
     }
     
     @RequestMapping(value = "",method = RequestMethod.POST,produces = {"application/json"})
     public ResponseEntity<Email> create(@RequestBody Email email) {
- //       Email savedEmail = emailService.save(email);
-        System.out.println(email.getContent());
+        String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        Users currentUser = userService.getOne(currentUserName);
+        email.setSender(currentUser);
+        List<Users> recievers = userService.findAll(email.getReceiverUserNames());
+        email.setReceivers(recievers);
+        Email savedEmail = emailService.save(email);
         return new ResponseEntity<Email>(email,HttpStatus.CREATED);
     }
     

@@ -34,7 +34,7 @@
         </authentication-provider>
         <authentication-provider>
             <password-encoder ref="bcryptEncoder" />
-            <jdbc-user-service id="jdbcUserDetailsService" data-source-ref="jpa-jtaDataSource" />
+            <jdbc-user-service id="jdbcUserDetailsService" data-source-ref="localDataSource" />
         </authentication-provider>
     </authentication-manager>
 </beans:beans>
