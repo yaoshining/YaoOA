@@ -41,8 +41,7 @@ public class EmailsController {
     
     @RequestMapping(value = "",method = RequestMethod.POST,produces = {"application/json"})
     public ResponseEntity<Email> create(@RequestBody Email email) {
-        String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-        Users currentUser = userService.getOne(currentUserName);
+        Users currentUser = userService.getCurrentUser();
         email.setSender(currentUser);
         List<Users> recievers = userService.findAll(email.getReceiverUserNames());
         email.setReceivers(recievers);

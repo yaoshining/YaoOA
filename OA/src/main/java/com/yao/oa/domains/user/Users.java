@@ -3,6 +3,7 @@ package com.yao.oa.domains.user;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yao.oa.domains.demo.Email;
+import com.yao.oa.domains.files.Attachment;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -28,6 +29,9 @@ public class Users implements Serializable{
     @JsonIgnore
     @ManyToMany(mappedBy = "receivers",fetch = FetchType.LAZY)
     private List<Email> receivedEmails;
+    @JsonIgnore
+    @OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY,mappedBy = "creator")
+    private List<Attachment> attachments;
     public String getUsername() {
         return username;
     }
@@ -66,6 +70,14 @@ public class Users implements Serializable{
 
     public void setReceivedEmails(List<Email> receivedEmails) {
         this.receivedEmails = receivedEmails;
+    }
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
     
     

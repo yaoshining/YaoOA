@@ -9,4 +9,5 @@ import org.springframework.security.authentication.AuthenticationManager;
  */
 public interface UsersService extends AuthenticationManager,BaseService<Users, String>{
     public Users getUserInfo(String username);
+    public Users getCurrentUser();
 }

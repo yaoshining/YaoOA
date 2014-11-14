@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -46,6 +47,8 @@ public class Email implements Serializable{
     private List<Users> receivers;
     @Transient
     private List<String> receiverUserNames;
+    @Column
+    private Integer[] attachments;
     public Integer getId() {
         return id;
     }
@@ -102,9 +105,12 @@ public class Email implements Serializable{
         this.receiverUserNames = receiverUserNames;
     }
 
-    
+    public Integer[] getAttachments() {
+        return attachments;
+    }
 
-    
-    
+    public void setAttachments(Integer[] attachments) {
+        this.attachments = attachments;
+    }
     
 }
