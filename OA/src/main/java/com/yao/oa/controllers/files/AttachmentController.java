@@ -10,6 +10,7 @@ import com.yao.oa.services.files.AttachmentService;
 import com.yao.oa.services.user.UsersService;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 import javax.annotation.Resource;
 import org.joda.time.DateTime;
@@ -28,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author yao
  */
 @RestController
-@RequestMapping("/services/files")
+@RequestMapping("/services/attachments")
 public class AttachmentController {
     @Resource
     private AttachmentService attachService;
@@ -55,5 +56,9 @@ public class AttachmentController {
         Attachment attach = new Attachment(orginFilename.substring(0,orginFilename.lastIndexOf('.')+1), filePath, file.getContentType(),userService.getCurrentUser());
         Attachment savedAttach = attachService.save(attach);
         return new ResponseEntity<Attachment>(savedAttach,HttpStatus.OK);
+    }
+    @RequestMapping(value = "",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Attachment> index() {
+        return attachService.findAll();
     }
 }
