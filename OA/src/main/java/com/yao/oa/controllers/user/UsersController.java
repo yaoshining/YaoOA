@@ -27,4 +27,8 @@ public class UsersController {
     public List<Users> index(){
         return usersService.findAll();
     }
+    @RequestMapping(value = "/current",method = RequestMethod.GET,produces = "application/json")
+    public Users current(){
+        return usersService.getCurrentUser();
+    }
 }
