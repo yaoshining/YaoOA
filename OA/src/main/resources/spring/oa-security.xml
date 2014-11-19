@@ -8,10 +8,10 @@
     <debug />
     <http pattern="/resources/**" security="none" />
     <http pattern="/services/**" create-session="stateless">
-        <intercept-url pattern='/**' access='ROLE_REMOTE' />
+        <intercept-url pattern='/services/**' access='ROLE_REMOTE' />
         <http-basic />
     </http>
-    <http>
+<!--    <http>
         <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/**" access="ROLE_ADMIN" requires-channel="any" />
@@ -21,6 +21,11 @@
             <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
         </session-management>
         <remember-me key="myAppKey" user-service-ref="jdbcUserDetailsService" />
+    </http>-->
+    <http>
+        <intercept-url pattern="/auth/login" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/**" access="ROLE_ADMIN" requires-channel="any" />
+        <http-basic />
     </http>
     <global-method-security secured-annotations="enabled" jsr250-annotations="enabled" pre-post-annotations="enabled" />
     <beans:bean name="bcryptEncoder"

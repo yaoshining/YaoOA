@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * Created by 世宁 on 2014/10/6 0006.
  */
 @RestController
-@RequestMapping("/services/auth")
+@RequestMapping("/auth")
 public class AuthenticationController {
     @Resource
     private UsersService usersService;
@@ -27,10 +27,11 @@ public class AuthenticationController {
         HttpStatus status = HttpStatus.OK;
         JSONObject jsonObj = new JSONObject();
         try {
-//            Authentication authentication = usersService.authenticate(request);
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
+            Authentication authentication = usersService.authenticate(request);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             status = HttpStatus.OK;
-//            jsonObj.put("status",true);
+            jsonObj.put("status",true);
+            jsonObj.put("principal", authentication.getPrincipal());
         } catch (AuthenticationException e){
 //            SecurityContextHolder.setContext(SecurityContextHolder.createEmptyContext());
             jsonObj.put("status",false);
