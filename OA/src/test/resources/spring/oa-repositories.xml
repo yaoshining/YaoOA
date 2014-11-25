@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+    <!--
+        Explicitly wire the EntityManagerFactory to be used with the repositories being
+        detected by the repositories element. Usually used if multiple EntityManagerFactory
+        beans are used within the application. If not configured we will automatically lookup
+        the EntityManagerFactory bean with the name entityManagerFactory in the ApplicationContext.
+        Explicitly wire the PlatformTransactionManager to be used with the repositories being
+        detected by the repositories element. Usually only necessary if multiple transaction
+        managers and/or EntityManagerFactory beans have been configured. Default to a single
+        defined PlatformTransactionManager inside the current ApplicationContext.
+    -->
+    <jpa:repositories base-package="com.yao.oa.repositories" />
+    <!--
+        The configuration setup shown above will register a few basic components:
+        1.A DomainClassConverter to enable Spring MVC to resolve instances of repository managed
+          domain classes from request parameters or path variables.
+        2.HandlerMethodArgumentResolver implementations to let Spring MVC resolve Pageable and
+          Sort instances from request parameters.
+    -->
+    <bean class="org.springframework.data.web.config.SpringDataWebConfiguration" />
+    <bean class="org.springframework.data.web.config.SpringDataJacksonConfiguration" />
+</beans>

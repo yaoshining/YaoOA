@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author yao
  */
 //@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"classpath:spring/beans.xml"})
+//@ContextConfiguration(locations = {"classpath:spring/oa-repositories.xml","classpath:spring/beans1.xml"})
 public class DemoJunitTest{
     
     public DemoJunitTest() {
