@@ -39,4 +39,9 @@ public class AuthenticationController {
         }
         return new ResponseEntity<String>(jsonObj.toString(), status);
     }
+    @RequestMapping(value = "/logout")
+    public ResponseEntity<Void> logout() {
+        SecurityContextHolder.clearContext();
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }
