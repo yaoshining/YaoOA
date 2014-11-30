@@ -8,7 +8,24 @@
     <packaging>war</packaging>
 
     <name>YaoOA</name>
-
+    <organization>
+        <name>tongda</name>
+        <url>http://www.tongda2000.com/</url>
+    </organization>
+    <developers>
+        <developer>
+            <id>ysn</id>
+            <name>Shining Yao</name>
+            <email>ysnlvlqw@msn.com</email>
+            <url>http://114.215.109.39/</url>
+            <organization>tongda</organization>
+            <organizationUrl>http://www.tongda2000.com/</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
