@@ -26,6 +26,28 @@
             </roles>
         </developer>
     </developers>
+<!--    <issueManagement>
+        <system>JIRA</system>
+        <url>http://114.215.109.39/JIRA</url>
+    </issueManagement>-->
+    <ciManagement>
+        <system>hudson</system>
+        <url>http://114.215.109.39:8080/</url>
+        <notifiers>
+            <notifier>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnSuccess>true</sendOnSuccess>
+                <sendOnWarning>true</sendOnWarning>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+    <scm>
+        <connection></connection>
+        <developerConnection></developerConnection>
+        <tag></tag>
+        <url></url>
+    </scm>
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
