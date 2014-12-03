@@ -33,14 +33,15 @@
         <property name="username" value="#{datasourceProperties[username]}" />
         <property name="password" value="#{datasourceProperties[password]}" />
     </bean>-->
-    <bean id="localDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-        <property name="driverClassName" value="#{datasourceProperties[driverClass]}" />
-        <property name="url" value="#{datasourceProperties[url]}" />
-        <property name="username" value="#{datasourceProperties[username]}" />
+    <bean id="localDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="#{datasourceProperties[driverClass]}" />
+        <property name="jdbcUrl" value="#{datasourceProperties[url]}" />
+        <property name="user" value="#{datasourceProperties[username]}" />
         <property name="password" value="#{datasourceProperties[password]}" />
-        <property name="maxIdle" value="#{datasourceProperties[maxIdle]}" />
-        <property name="minIdle" value="#{datasourceProperties[minIdle]}" />
-        <property name="maxTotal" value="#{datasourceProperties[maxTotal]}" />   
+        <property name="initialPoolSize" value="#{datasourceProperties[initialPoolSize]}" />
+        <property name="minPoolSize" value="#{datasourceProperties[minPoolSize]}" />
+        <property name="maxPoolSize" value="#{datasourceProperties[maxPoolSize]}" />
+        <property name="acquireIncrement" value="#{datasourceProperties[acquireIncrement]}" />
     </bean>
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
              p:dataSource-ref="localDataSource"
