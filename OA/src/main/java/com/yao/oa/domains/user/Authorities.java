@@ -13,6 +13,7 @@ import javax.persistence.IdClass;
 public class Authorities implements Serializable{
     @Id
     private String username;
+    @Id
     private String authority;
 
     public String getUsername() {
