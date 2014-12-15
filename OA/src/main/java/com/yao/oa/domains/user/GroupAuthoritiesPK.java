@@ -39,5 +39,21 @@ public class GroupAuthoritiesPK implements Serializable {
     public void setAuthority(String authority) {
         this.authority = authority;
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof GroupAuthoritiesPK)) {
+            return false;
+        }
+        GroupAuthoritiesPK pk = (GroupAuthoritiesPK)obj;
+        if (!(this.group_ == pk.group_)) return false;
+        if (!this.authority.equals(pk.getAuthority())) return false;
+        return true;
+    }
+    @Override
+    public int hashCode( )
+    {
+        return this.group_.hashCode( ) + this.authority.hashCode();
+    }
 }
