@@ -30,6 +30,10 @@
     <global-method-security secured-annotations="enabled" jsr250-annotations="enabled" pre-post-annotations="enabled" />
     <beans:bean name="bcryptEncoder"
          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <beans:bean id="jdbcUserDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+        <beans:property name="enableGroups" value="true" />
+        <beans:property name="dataSource" ref="localDataSource" />
+    </beans:bean>
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <password-encoder ref="bcryptEncoder" />
@@ -37,9 +41,8 @@
                     <user name="yaoshining" password="$2a$10$cZHJoY0KcJ2MbbdeSl9cKemjs1AMxJx5TMPYQQ/2D6pFIr5d10ZpG" authorities="ROLE_USER,ROLE_ADMIN" />
             </user-service>
         </authentication-provider>
-        <authentication-provider>
+        <authentication-provider user-service-ref="jdbcUserDetailsService">
             <password-encoder ref="bcryptEncoder" />
-            <jdbc-user-service id="jdbcUserDetailsService" data-source-ref="localDataSource" />
         </authentication-provider>
     </authentication-manager>
 </beans:beans>
