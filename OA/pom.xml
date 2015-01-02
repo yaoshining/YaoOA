@@ -248,8 +248,8 @@
                     <webApp>
                         <contextPath>/oa</contextPath>
                     </webApp>
-                    <stopKey></stopKey>
-                    <stopPort>8080</stopPort>
+                    <stopKey>foo</stopKey>
+                    <stopPort></stopPort>
                 </configuration>
             </plugin>
         </plugins>
